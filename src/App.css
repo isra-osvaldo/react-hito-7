@@ -1,0 +1,29 @@
+.pizza-contenedor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    justify-items: center; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .card-pizza {
+    width: 100%; 
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-pizza img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+
+
+
+  
