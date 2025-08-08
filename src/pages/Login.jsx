@@ -1,9 +1,33 @@
 import { useState } from "react";
+import { useUser } from "../context/UserContext";
 
 function Login() {
+    const { login } = useUser();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    const validarDatos = async (e) => {
+        e.preventDefault();
+        setError("");
+
+        if (!email.trim() || !password.trim()) {
+            setError("Todos los campos son obligatorios");
+            return;
+        }
+
+        if (password.length < 6) {
+            setError("La contraseña debe tener al menos 6 caracteres");
+            return;
+        }
+
+        try {
+            await login(email, password);
+        } catch (err) {
+            setError(err.message || "Error al iniciar sesión");
+        }
+
+    };
 
     return (
         <div className="container mt-5">
@@ -35,35 +59,12 @@ function Login() {
                     />
                 </div>
 
-                {error && (
-                    <div className="alert alert-danger" role="alert">
-                        Por favor, verifica los datos ingresados.
-                    </div>
-                )}
+                {error && <div className="alert alert-danger">{error}</div>}
 
-                <button type="submit" className="btn btn-primary">
-                    Enviar
-                </button>
+                <button type="submit" className="btn btn-primary">Enviar</button>
             </form>
         </div>
     );
-
-    // Validar login
-    function validarDatos(e) {
-        e.preventDefault();
-        if (!email.trim() || !password.trim()) {
-            setError(true);
-            alert("Todos los campos son obligatorios");
-            return;
-        }
-        if (password.length < 6) {
-            setError(true);
-            alert("La contraseña debe tener al menos 6 caracteres");
-            return;
-        }
-        setError(false);
-        alert("Formulario enviado correctamente");
-    }
 }
 
 export default Login;
